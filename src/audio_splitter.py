@@ -9,7 +9,7 @@ import soundfile as sf
 
 
 class AudioSplitter:
-    def __init__(self, download_path="../data"):
+    def __init__(self):
         self.model = get_model(name="htdemucs")
     def split_audio(self, audio_path):
         # Load the audio file
@@ -32,8 +32,11 @@ class AudioSplitter:
         print("Saving vocal version...")
         vocal_path = os.path.splitext(audio_path)[0] + "_vocals.wav"
         sf.write(vocal_path, vocals.T.numpy(), self.model.samplerate)
+        print(f"Instrumental saved to: {instrumental_path}")
+        print(f"Vocals saved to: {vocal_path}")
+        return instrumental_path, vocal_path
 
 if __name__ == "__main__":
     audio_splitter = AudioSplitter()
-    audio_splitter.split_audio("/workspace/NoisyNeighbour/data/Kaderum Komba - Jail Fight/Kaderum Komba - Jail Fight.mp3")
+    audio_splitter.split_audio("")
     print("Audio split successfully.")
